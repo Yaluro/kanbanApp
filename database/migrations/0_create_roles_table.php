@@ -16,11 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id')->default(1);
-            $table->foreign('role_id')->references('id')->on('roles');
-        });
     }
 
     /**
@@ -28,11 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['role_id']);
-            $table->dropColumn('role_id');
-        });
-
         Schema::dropIfExists('roles');
     }
 };
