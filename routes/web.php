@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProjectController;
 
 Route::get('/', function () {
     if (Auth::check()) {
