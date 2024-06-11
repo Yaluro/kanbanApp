@@ -18,13 +18,22 @@
                         </div>
                         @endif
                         <!-- Formulaire -->
-                        <form method="POST" action="{{ route('projects.update',  ['project' => $project->id]) }}">
+                        <form method="POST" action="{{ route('projects.update', ['project' => $project->id]) }}">
                             @csrf
-                            @method('PATCH')
+                            @method('PUT')
                             <div class="form-group">
                                 <label>Project Name</label>
-                                <input type="text" name="nameProject" class="form-control" value="{{$project->nameProject}}">
-                                <input type="hidden" name="team_id" value="{{$project->team_id}}">
+                                <input type="text" name="nameProject" class="form-control" value="{{ $project->nameProject }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="team_id">Team</label>
+                                <select name="team_id" class="form-control" id="team_id" required>
+                                    @foreach($teams as $team)
+                                        <option value="{{ $team->id }}" {{ $project->team_id == $team->id ? 'selected' : '' }}>
+                                            {{ $team->nameTeam }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>                           
                             <button type="submit" class="btn btn-primary rounded-pill shadow-sm mt-4">Mettre à jour</button>
                         </form>
@@ -34,4 +43,5 @@
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection

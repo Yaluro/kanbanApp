@@ -22,21 +22,18 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
     public function teams()
     {
-        return $this->hasMany(Team::class);
+        return $this->belongsToMany(Team::class, 'user_team', 'user_id', 'team_id');
+    }
+
+    public function projects()
+    {
+        return $this->hasManyThrough(Project::class, Team::class, 'user_id', 'team_id');
     }
 }

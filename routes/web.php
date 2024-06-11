@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamController;
 
@@ -13,12 +13,11 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/dashboard', [LoginController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Auth::routes();
 
-Route::resource('projects', ProjectController::class);
-Route::get('/projects', [ProjectController::class, 'index'])->name('project');
-
-// route des équipes ( Teams )
-Route::resource('teams', TeamController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('projects', ProjectController::class);
+    Route::resource('teams', TeamController::class);
+});

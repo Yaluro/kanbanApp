@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,19 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'id',
-        'nameTeam',
-        'founded',
-        
-    ];
-    public function Team()
-    {
-        return $this->belongsToMany(Team::class);
 
-    }
+    protected $fillable = [
+        'nameTeam',
+    ];
+
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_team', 'team_id', 'user_id');
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'team_id');
     }
 }

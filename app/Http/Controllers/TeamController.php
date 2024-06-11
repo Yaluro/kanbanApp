@@ -1,12 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Team;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class TeamController extends Controller
 {
@@ -15,7 +13,12 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::latest()->paginate(10);
+        $userId = Auth::id();
+        $teams = Team::join('user_team', 'teams.id', '=', 'user_team.team_id')
+            ->where('user_team.user_id', $userId)
+            ->select('teams.*')
+            ->get();
+
         return view('teams.index', compact('teams'));
     }
 
@@ -32,24 +35,21 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['nameTeam' => 'required',
-            'user_id' => 'required|exists:users,id',
+        $request->validate([
+            'nameTeam' => 'required',
         ]);
 
-        // Créer l'équipe
         $team = Team::create([
             'nameTeam' => $request->nameTeam,
         ]);
-    
-        // Ajouter une entrée dans la table pivot user_team
+
         DB::table('user_team')->insert([
-            'user_id' => $request->user_id,
+            'user_id' => Auth::user()->id,
             'team_id' => $team->id,
         ]);
-    
+
         return redirect()->route('teams.index')->with('success', 'Équipe créée avec succès');
     }
-    
 
     /**
      * Display the specified resource.
@@ -62,15 +62,9 @@ class TeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Team $teams, $id)
+    public function edit(Team $team)
     {
-        if (Auth::user()->user_id == $teams->id) {
-
-
-            return view('teams.edit');
-        } else {
-            return redirect()->route('home')->withErrors(['erreur' => 'Vous n\'êtes pas autorisé modifié cette équipe']);
-        }
+        return view('teams.edit', compact('team'));
     }
 
     /**
@@ -78,15 +72,15 @@ class TeamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $updateTeam = $request->validate([
-            'id' => 'required',
+        $request->validate([
             'nameTeam' => 'required',
-
         ]);
-        Team::whereId($id)->update($updateTeam);
-        // ci-dessous erreur ?
+
+        $team = Team::findOrFail($id);
+        $team->update($request->all());
+
         return redirect()->route('teams.index')
-            ->with('success', 'ln\'équipe est à jour !');
+            ->with('success', 'Équipe mise à jour avec succès');
     }
 
     /**
@@ -94,8 +88,8 @@ class TeamController extends Controller
      */
     public function destroy(string $id)
     {
-        $teams = Team::findOrFail($id);
-        $teams->delete();
-        return redirect('/teams')->with('success', 'équipe supprimé');
+        $team = Team::findOrFail($id);
+        $team->delete();
+        return redirect()->route('teams.index')->with('success', 'Équipe supprimée avec succès');
     }
 }

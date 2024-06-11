@@ -13,7 +13,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $userId = Auth::id();
+        $projects = Project::whereHas('team.users', function($query) use ($userId) {
+            $query->where('users.id', $userId);
+        })->with('team')->get();
+
         return view('projects.index', compact('projects'));
     }
 
@@ -22,8 +26,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $projects = Project::all();
-        return view('projects.create', compact('projects'));
+        $teams = Auth::user()->teams;
+        return view('projects.create', compact('teams'));
     }
 
     /**
@@ -33,7 +37,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'nameProject' => 'required',
-            'team_id' => 'required',
+            'team_id' => 'required|exists:teams,id',
         ]);
 
         Project::create([
@@ -41,15 +45,15 @@ class ProjectController extends Controller
             'team_id' => $request->team_id,
         ]);
 
-        return redirect()->route('project.index');
+        return redirect()->route('projects.index')->with('success', 'Projet créé avec succès');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        $project = Project::findOrfail($id);
+        $project = Project::findOrFail($id);
         return view('projects.show', compact('project'));
     }
 
@@ -58,31 +62,35 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $project = Project::findOrfail($id);
-        return view('projects.edit', compact('project'));
+        $project = Project::findOrFail($id);
+        $teams = Auth::user()->teams;
+        return view('projects.edit', compact('project', 'teams'));
     }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-
-        $updateProject = $request->validate([
+        $request->validate([
             'nameProject' => 'required',
             'team_id' => 'required',
         ]);
-        Project::whereId($id)->update($updateProject);
-        return redirect()->route('projects.index')
-            ->with('success', 'Le projet a ete mis à jour avec succès !');
+
+        $project = Project::findOrFail($id);
+        $project->update($request->all());
+
+        return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $project = Project::findOrFail($id);
         $project->delete();
-        return redirect('/projects')->with('success', 'Projet supprimé avec succès');
+
+        return redirect()->route('projects.index')->with('success', 'Project deleted successfully.');
     }
 }
