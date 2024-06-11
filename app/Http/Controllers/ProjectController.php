@@ -33,12 +33,12 @@ class ProjectController extends Controller
     {
         $request->validate([
             'nameProject' => 'required',
-            'id_team' => 'required',
+            'team_id' => 'required',
         ]);
 
         Project::create([
             'nameProject' => $request->nameProject,
-            'id_team' => $request->id_team,
+            'team_id' => $request->team_id,
         ]);
 
         return redirect()->route('project.index');
@@ -58,21 +58,18 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        if (Auth::user()->id == $project->id) {
-            return view('projects.edit', compact('project'));
-        } else {
-            return redirect()->route('home')->withErrors(['erreur' => 'Vous n\'êtes pas autorisé à modifier ce projet']);
-        }
+        $project = Project::findOrfail($id);
+        return view('projects.edit', compact('project'));
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
+
         $updateProject = $request->validate([
             'nameProject' => 'required',
-            'id_team' => 'required',
+            'team_id' => 'required',
         ]);
         Project::whereId($id)->update($updateProject);
         return redirect()->route('projects.index')

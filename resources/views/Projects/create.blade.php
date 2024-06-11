@@ -24,7 +24,7 @@
                                 <label>Project Name</label>
                                 <input type="text" name="nameProject" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-primary rounded-pill shadow-sm">
+                            <button type="submit" class="btn btn-primary rounded-pill shadow-sm mt-4">
                                 Ajouter un projet </button>
                         </form>
                         <!-- Fin du formulaire -->
