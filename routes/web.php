@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProjectController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -14,3 +15,6 @@ Route::get('/', function () {
 Route::get('/dashboard', [LoginController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Auth::routes();
+
+Route::resource('projects', ProjectController::class);
+Route::get('/projects', [ProjectController::class, 'index'])->name('project');
