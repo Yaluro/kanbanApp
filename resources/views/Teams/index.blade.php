@@ -17,9 +17,6 @@
                     <p class="card-text">date de création: {{ $team->created_at }}</p>
                     <div class="row">
 
-
-
-
                         <i class="fa-solid fa-bomb btn-secondary"></i>
                     </div>
                 </div>
