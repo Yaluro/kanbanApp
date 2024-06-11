@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('statuses', function (Blueprint $table) {
-            $table->id('id_status');
+            $table->id();
             $table->boolean('toDo');
             $table->boolean('doing');
             $table->boolean('done')->nullable();

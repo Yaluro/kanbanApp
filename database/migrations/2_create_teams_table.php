@@ -12,9 +12,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->id('id_team');
+            $table->id();
             $table->string('nameTeam', 50)->nullable();
-            $table->date('founded')->nullable();
             $table->timestamps();
         });
     }

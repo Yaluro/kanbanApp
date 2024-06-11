@@ -12,12 +12,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->id('id_task');
+            $table->id();
             $table->string('nameTask', 50)->nullable();
             $table->text('description');
             $table->dateTime('endDate');
-            $table->unsignedBigInteger('id_status');
-            $table->foreign('id_status')->references('id_status')->on('statuses');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->timestamps();
         });
     }

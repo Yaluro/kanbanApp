@@ -17,15 +17,15 @@ class ProjectSeeder extends Seeder
             [
                 [
                     'nameProject' => 'arinfo',
-                    'id_team' => '1',
+                    'team_id' => '1',
                 ],
                 [
                     'nameProject' => 'kanban',
-                    'id_team' => '2',
+                    'team_id' => '2',
                 ],
                 [
                     'nameProject' => 'laravel',
-                    'id_team' => '3',
+                    'team_id' => '3',
                 ],
             ]
 

@@ -12,11 +12,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id('id_project');
+            $table->id();
             $table->string('nameProject', 50);
             $table->date('creationDate')->nullable();
-            $table->unsignedBigInteger('id_team');
-            $table->foreign('id_team')->references('id_team')->on('teams');
+            $table->unsignedBigInteger('team_id');
+            $table->foreign('team_id')->references('id')->on('teams');
             $table->timestamps();
         });
     }
