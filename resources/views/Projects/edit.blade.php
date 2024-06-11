@@ -24,6 +24,7 @@
                             <div class="form-group">
                                 <label>Project Name</label>
                                 <input type="text" name="nameProject" class="form-control" value="{{$project->nameProject}}">
+                                <input type="hidden" name="team_id" value="{{$project->team_id}}">
                             </div>                           
                             <button type="submit" class="btn btn-primary rounded-pill shadow-sm mt-4">Mettre à jour</button>
                         </form>
