@@ -9,7 +9,7 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
-    return view('auth.login'); 
+    return view('home');
 })->name('home');
 
 Route::get('/dashboard', [LoginController::class, 'index'])->middleware('auth')->name('dashboard');
