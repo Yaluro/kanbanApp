@@ -22,8 +22,8 @@
 
     </div>
     @endforeach
-    <div class="container-fluid col-md-4 text-center">
-        <button class="btn btn-primary" href="{{ route('teams.create'}}">New team</button>
+    <div class="text-center mt-4 mb-3">
+        <a href="{{ route('teams.create') }}" class="btn btn-primary">Ajouter une équipe</a>
     </div>
 </div>
 @endsection
