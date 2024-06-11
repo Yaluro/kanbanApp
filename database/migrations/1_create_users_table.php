@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('username', 25)->unique()->default('user');
             $table->string('email', 50)->unique();
             $table->string('password');
-            $table->boolean('isAdmin')->default(false);
             $table->unsignedBigInteger('role_id')->default(1); 
             $table->timestamps();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
