@@ -13,7 +13,9 @@
                 <label for="nameTeam">Nom de l'équipe :</label>
                 <input type="text" class="form-control" name="nameTeam" required>
             </div>
-
+            <div>
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+            </div>
             <button type="submit" class="btn btn-primary mt-4">Créer l'équipe</button>
         </form>
     </div>

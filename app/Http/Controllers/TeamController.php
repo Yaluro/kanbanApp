@@ -32,22 +32,24 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nameTeam' => 'required','user_id' => 'required|exists:users,id', // Ajout de la validation pour user_id
+        $request->validate(['nameTeam' => 'required',
+            'user_id' => 'required|exists:users,id',
         ]);
 
-        $team = Team::create(['nameTeam' => $request->nameTeam,
+        // Créer l'équipe
+        $team = Team::create([
+            'nameTeam' => $request->nameTeam,
         ]);
-
-        // Ajouter une entrée dans la table user_team
+    
+        // Ajouter une entrée dans la table pivot user_team
         DB::table('user_team')->insert([
             'user_id' => $request->user_id,
             'team_id' => $team->id,
         ]);
-
+    
         return redirect()->route('teams.index')->with('success', 'Équipe créée avec succès');
     }
-
+    
 
     /**
      * Display the specified resource.
