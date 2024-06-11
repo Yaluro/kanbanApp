@@ -17,9 +17,8 @@ Route::get('/dashboard', [LoginController::class, 'index'])->middleware('auth')-
 
 Auth::routes();
 
-//Route::resource('projects', ProjectController::class);
+Route::resource('projects', ProjectController::class);
 Route::get('/projects', [ProjectController::class, 'index'])->name('project');
-Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
 
 // route des équipes ( Teams )
 Route::resource('teams', TeamController::class);
