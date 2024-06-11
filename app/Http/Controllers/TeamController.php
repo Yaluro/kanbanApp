@@ -23,7 +23,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        return view('team.create');
+        return view('teams.create');
     }
 
     /**
@@ -32,12 +32,10 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_team' => 'required',
             'nameTeam' => 'required',
             'founded' => 'required',
         ]);
         Team::create([
-            'id_team' => $request->id_team,
             'nameTeam' => $request->nameTeam,
             'founded' => $request->founded,
         ]);
