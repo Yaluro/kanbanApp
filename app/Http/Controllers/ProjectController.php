@@ -33,12 +33,12 @@ class ProjectController extends Controller
     {
         $request->validate([
             'nameProject' => 'required',
-            'id_team' => 'required',
+            'team_id' => 'required',
         ]);
 
         Project::create([
             'nameProject' => $request->nameProject,
-            'id_team' => $request->id_team,
+            'team_id' => $request->team_id,
         ]);
 
         return redirect()->route('project.index');
