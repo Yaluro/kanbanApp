@@ -10,7 +10,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    
     protected $fillable = [
         'username',
         'email',
@@ -34,5 +33,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function teams()
+    {
+return $this->hasMany(Team::class);
+
     }
 }
