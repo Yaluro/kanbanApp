@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,15 +33,21 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nameTeam' => 'required',
-            'founded' => 'required',
+            'nameTeam' => 'required','user_id' => 'required|exists:users,id', // Ajout de la validation pour user_id
         ]);
-        Team::create([
-            'nameTeam' => $request->nameTeam,
-            'founded' => $request->founded,
+
+        $team = Team::create(['nameTeam' => $request->nameTeam,
         ]);
-        return redirect()->route('teams.index')->with('success', 'équipe crée avec succès');
+
+        // Ajouter une entrée dans la table user_team
+        DB::table('user_team')->insert([
+            'user_id' => $request->user_id,
+            'team_id' => $team->id,
+        ]);
+
+        return redirect()->route('teams.index')->with('success', 'Équipe créée avec succès');
     }
+
 
     /**
      * Display the specified resource.
@@ -53,10 +60,9 @@ class TeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Team $teams, $id)
     {
-        $hero = Team::findOrFail($id);
-        if (Auth::user()->id == $hero->user_id) {
+        if (Auth::user()->user_id == $teams->id) {
 
 
             return view('teams.edit');
@@ -70,13 +76,12 @@ class TeamController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $updateHero = $request->validate([
-            'id_team' => 'required',
+        $updateTeam = $request->validate([
+            'id' => 'required',
             'nameTeam' => 'required',
-            'founded' => 'required',
 
         ]);
-        Team::whereId($id)->update($updateHero);
+        Team::whereId($id)->update($updateTeam);
         // ci-dessous erreur ?
         return redirect()->route('teams.index')
             ->with('success', 'ln\'équipe est à jour !');
