@@ -13,6 +13,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
+    protected $redirectTo = '/dashboard';
     protected function validator(array $data)
     {
         return Validator::make($data, [
