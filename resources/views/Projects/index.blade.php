@@ -27,7 +27,7 @@
                     <div class="container-fluid mt-4">
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="{{ route('projects.edit', ['project' => $project->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Edit</a>
+                                <a href="{{ route('projects.edit', ['project' => $project->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Editer</a>
                             </div>
                             <div class="col-md-6">
                                 <form action="{{ route('projects.destroy', ['project' => $project->id]) }}" method="POST" style="display: inline-block">
