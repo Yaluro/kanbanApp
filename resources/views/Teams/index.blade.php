@@ -10,27 +10,27 @@
             <a href="{{ route('teams.create') }}" class="btn btn-primary text-light">New team</a>
         </div>
     </div>
-    @foreach ($teams as $team)
-    <div class="row row-cols-1 row-cols-md-6 g-4 m-3 bg-primary rounded-3 mt-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4 m-3 bg-primary rounded-3 mt-4">
+        @foreach ($teams as $team)
         <div class="col">
             <div class="card m-4 rounded-4">
                 <div class="card-body">
-                <h2 class="card-title text-primary">Team Name: {{ $team->nameTeam }}</h2>
+                    <h2 class="card-title text-primary">Team Name: {{ $team->nameTeam }}</h2>
                     <p class="card-text">Created at: {{ $team->created_at }}</p>
                     <div class="container-fluid mt-4">
                         <div>
-                        <h5>Tasks:</h5>
-                        @if($team->tasks->isNotEmpty())
-                        @foreach ($team->tasks as $task)
-                        <div>
-                            <span>{{ $task->nameTask }}</span> - <span>{{ $task->status->name }}</span>
+                            <h5>Tasks:</h5>
+                            @if($team->tasks->isNotEmpty())
+                            @foreach ($team->tasks as $task)
+                            <div>
+                                <span>{{ $task->nameTask }}</span> - <span>{{ $task->status->name }}</span>
+                            </div>
+                            @endforeach
+                            @else
+                            <p>No tasks associated with this team.</p>
+                            @endif
                         </div>
-                        @endforeach
-                        @else
-                        <p>No tasks associated with this team.</p>
-                        @endif
-                    </div>
-                    <div class="row mt-3">
+                        <div class="row mt-3">
                             <div class="col-md-6">
                                 <a href="{{ route('teams.edit', ['team' => $team->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Editer</a>
                             </div>

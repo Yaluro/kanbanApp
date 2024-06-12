@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-flex titleDashboard m-0">
-    <div class="row ">
-        <div class="container d-flex flex-column align-items-center text-center dashboard">
-            <h1>Your <span class="text-primary titleDashboard">Dashboard</span></h1>
+<div class="container-flex">
+    <div class="row">
+        <div class="container d-flex flex-column align-items-center text-center mt-5">
+            <h1>Your <span class="text-primary">Dashboard</span></h1>
         </div>
         <div class="container-fluid col-md-4 text-center">
             <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
@@ -22,7 +22,7 @@
                         <div class="card m-4 rounded-4">
                             <div class="card-body">
                                 <h2 class="card-title text-primary">{{ $project->nameProject }}</h2>
-                                <span class="card-text">{{ $project->updated_at }}</span>
+                                <span class="card-text">{{ $project->updated_at }}</span><br>
                                 <a href="{{ route('projects.show', $project->id) }}" class="btn btn-primary btn-sm mb-4 text-light mt-4">See the project</a>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="card m-4 rounded-4">
                             <div class="card-body">
                                 <h2 class="card-title text-primary">{{ $team->nameTeam }}</h2>
-                                <span class="card-text">{{ $team->created_at }}</span>
+                                <span class="card-text">{{ $team->created_at }}</span><br>
                                 <a href="{{ route('teams.show', $team->id) }}" class="btn btn-primary btn-sm mb-4 text-light mt-4">See the team</a>
                             </div>
                         </div>
