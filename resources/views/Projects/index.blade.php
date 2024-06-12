@@ -20,15 +20,23 @@
         <div class="col">
             <div class="card m-4 rounded-4">
                 <div class="card-body">
-                    <h2 class="card-title">{{ $project->nameProject }}</h2>
+                    <h2 class="card-title text-primary">{{ $project->nameProject }}</h2>
                     <span class="card-text">{{ $project->team->nameTeam }}</span><br>
                     <span class="card-text">{{ $project->created_at }}</span><br>
                     <span class="card-text">{{ $project->updated_at }}</span><br>
-                    <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-primary btn-sm mb-4">Edit</a>
-                    <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline-block">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                    <div class="container-fluid mt-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="{{ route('projects.edit', ['project' => $project->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Editer</a>
+                            </div>
+                            <div class="col-md-6">
+                                <form action="{{ route('projects.destroy', ['project' => $project->id]) }}" method="POST" style="display: inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-s" type=" submit">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
