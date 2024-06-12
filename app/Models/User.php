@@ -36,4 +36,14 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Project::class, Team::class, 'user_id', 'team_id');
     }
+    
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role && $this->role->name === 'admin';
+    }
 }

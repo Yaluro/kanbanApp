@@ -22,7 +22,15 @@
                 <div class="card-body">
                     <h4 class="card-title">Nom de l'équipe: {{ $team->nameTeam }}</h4>
                     <p class="card-text">Date de création: {{ $team->created_at }}</p>
-                    <div class="row">
+                    <div>
+                        <h5>Tâches:</h5>
+                        @foreach ($teams->tasks as $task)
+                        <div>
+                            <a href="{{ route('tasks.index', $task->id) }}">{{ $task->name }}</a>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="row mt-3">
                         <a href="{{ route('teams.edit', $team->id) }}" class="btn btn-secondary mb-2">
                             Editer
                         </a>

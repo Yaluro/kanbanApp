@@ -8,17 +8,18 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->boolean('toDo')->default(false);
-            $table->boolean('doing')->default(false);
-            $table->boolean('done')->default(false);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('username');
+            $table->string('email');
+            $table->text('message');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('contacts');
     }
 };
