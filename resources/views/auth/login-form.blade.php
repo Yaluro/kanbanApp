@@ -31,13 +31,20 @@
         </div>
 
         <div class="form-group mb-0">
-            <button type="submit" class="btn btn-primary w-100">
+            <button type="submit" class="btn btn-primary w-100 text-light">
                 {{ __('Login') }}
             </button>
-            @if (Route::has('password.request'))
-                <a class="btn btn-link d-block mt-2" href="{{ route('password.request') }}">
-                    {{ __('Forgot Your Password?') }}
+
+            <div class="mt-3">
+                <a href="{{ route('register') }}" class="btn btn-primary w-100 text-light">
+                    {{ __('Register') }}
                 </a>
+            </div>
+
+            @if (Route::has('password.request'))
+            <a class="btn btn-link d-block mt-2" href="{{ route('password.request') }}">
+                {{ __('Forgot Your Password?') }}
+            </a>
             @endif
         </div>
     </form>
