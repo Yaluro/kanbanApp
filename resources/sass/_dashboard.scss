@@ -1,0 +1,16 @@
+.dashboard {
+    background-color: $success;
+    margin: 0px 150px;
+    margin-bottom: 50px;
+    padding: 150px;
+}
+
+.titleDashboard {
+    font-size: 75px;
+}
+
+.hoverMenu {
+    a:hover {
+        color: $primary;
+    }
+}
