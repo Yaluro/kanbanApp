@@ -15,8 +15,10 @@
             <a href="{{ route('tasks.create') }}" class="btn btn-primary text-light">New Task</a>
         </div>
     </div>
+    @foreach($statuses as $status)
     <div class="row row-cols-1 row-cols-md-3 g-4 m-3 bg-primary rounded-3 mt-4">
-        @foreach($tasks as $task)
+        <h2>{{ $status->name }}</h2>
+        @foreach($tasks->where('status_id', $status->id) as $task)
         <div class="col">
             <div class="card m-4 rounded-4">
                 <div class="card-body">
@@ -32,16 +34,16 @@
                                 <form action="{{ route('tasks.destroy', ['task' => $task->id]) }}" method="POST" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn-s" type=" submit">Delete</button>
+                                    <button class="btn btn-danger btn-s" type="submit">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
-        @endif
         @endforeach
     </div>
+    @endforeach
 </div>
 @endsection

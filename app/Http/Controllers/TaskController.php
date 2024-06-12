@@ -13,9 +13,10 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::with('project', 'status')->get();
-        return view('tasks.index', compact('tasks'));
+        $statuses = Status::all();
+        return view('tasks.index', compact('tasks', 'statuses'));
     }
-
+    
     public function create()
     {
         $user = auth()->user();
