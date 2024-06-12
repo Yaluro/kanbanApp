@@ -22,7 +22,7 @@
                         <div class="card m-4 rounded-4">
                             <div class="card-body">
                                 <h2 class="card-title text-primary">{{ $project->nameProject }}</h2>
-                                <span class="card-text">{{ $project->updated_at }}</span>
+                                <span class="card-text">{{ $project->updated_at }}</span><br>
                                 <a href="{{ route('projects.show', $project->id) }}" class="btn btn-primary btn-sm mb-4 text-light mt-4">See the project</a>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="card m-4 rounded-4">
                             <div class="card-body">
                                 <h2 class="card-title text-primary">{{ $team->nameTeam }}</h2>
-                                <span class="card-text">{{ $team->created_at }}</span>
+                                <span class="card-text">{{ $team->created_at }}</span><br>
                                 <a href="{{ route('teams.show', $team->id) }}" class="btn btn-primary btn-sm mb-4 text-light mt-4">See the team</a>
                             </div>
                         </div>
