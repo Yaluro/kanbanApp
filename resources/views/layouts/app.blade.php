@@ -49,10 +49,13 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('projects.index') }}">Projects</a>
+                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('teams.index') }}">Teams</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('projects.index') }}">Projects</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('tasks.index') }}">Tasks</a>

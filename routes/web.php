@@ -9,9 +9,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('dashboard');
-    }
+
     return view('home');
 })->name('home');
 
