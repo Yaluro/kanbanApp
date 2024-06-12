@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,16 +10,17 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nameProject',
+        'nameProject', 
         'team_id',
     ];
 
-    public function team()
-    {
-        return $this->belongsTo(Team::class, 'team_id');
-    }
     public function tasks()
     {
-        return $this->belongsTo(Task::class, 'task_id');
+        return $this->hasMany(Task::class);
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
     }
 }

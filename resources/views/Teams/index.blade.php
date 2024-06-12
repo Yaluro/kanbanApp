@@ -16,11 +16,15 @@
                     <p class="card-text">Date de création: {{ $team->created_at }}</p>
                     <div>
                         <h5>Tâches:</h5>
-                        @foreach ($teams->tasks as $task)
+                        @if($team->tasks->isNotEmpty())
+                        @foreach ($team->tasks as $task)
                         <div>
-                            <a href="{{ route('tasks.index', $task->id) }}">{{ $task->name }}</a>
+                            <span>{{ $task->nameTask }}</span> - <span>{{ $task->status->name }}</span>
                         </div>
                         @endforeach
+                        @else
+                        <p>Aucune tâche associée à cette équipe.</p>
+                        @endif
                     </div>
                     <div class="row mt-3">
                         <a href="{{ route('teams.edit', $team->id) }}" class="btn btn-secondary mb-2">

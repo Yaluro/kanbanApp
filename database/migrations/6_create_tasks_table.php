@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nameTask', 50)->nullable();
             $table->text('description');
-            $table->dateTime('endDate');
+            $table->dateTime('endDate')->nullable();;
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

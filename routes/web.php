@@ -21,10 +21,10 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('projects', ProjectController::class);
+    Route::resource('tasks', TaskController::class);
     Route::resource('teams', TeamController::class);
     Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
     Route::get('/admin/messages', [ContactController::class, 'index'])->middleware('can:viewAny,App\Models\Contact')->name('admin.messages');
     Route::delete('/admin/messages/{message}', [ContactController::class, 'destroy'])->name('contact.destroy');
-    Route::resource('tasks', TaskController::class);
 });

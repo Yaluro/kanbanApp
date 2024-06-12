@@ -21,4 +21,9 @@ class Team extends Model
     {
         return $this->hasMany(Project::class, 'team_id');
     }
+
+    public function tasks()
+    {
+        return $this->hasManyThrough(Task::class, Project::class, 'team_id', 'project_id');
+    }
 }

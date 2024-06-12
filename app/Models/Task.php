@@ -12,16 +12,17 @@ class Task extends Model
     protected $fillable = [
         'nameTask',
         'description',
-        'status_id'
+        'status_id',
+        'project_id'
     ];
 
-    public function users()
+    public function project()
     {
-        return $this->belongsToMany(User::class, 'user_team', 'team_id', 'user_id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 
-    public function projects()
+    public function status()
     {
-        return $this->hasMany(Project::class, 'team_id');
+        return $this->belongsTo(Status::class, 'status_id');
     }
 }

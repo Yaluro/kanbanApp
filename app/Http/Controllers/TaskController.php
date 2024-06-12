@@ -4,96 +4,80 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\Project;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Project $project)
+    public function index()
     {
-        $tasks = $project->tasks;
+        $tasks = Task::with('project', 'status')->get();
         return view('tasks.index', compact('tasks'));
     }
 
-    /**
-     * Show the form for creating a new resource.x
-     */
     public function create()
     {
-        return view('tasks.create');
+        $user = auth()->user();
+    
+        $projects = Project::whereHas('team', function($query) use ($user) {
+            $query->whereHas('users', function($query) use ($user) {
+                $query->where('users.id', $user->id);
+            });
+        })->get();
+    
+        $statuses = Status::all();
+    
+        return view('tasks.create', compact('projects', 'statuses'));
     }
+    
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'nameTask' => 'required',
             'description' => 'required',
             'status_id' => 'required',
+            'project_id' => 'required',
         ]);
 
-        Task::create([
-            'nameTask' => $request->nameTask,
-            'description' => $request->description,
-            'status_id' => $request->status_id,
-        ]);
+        Task::create($request->all());
 
-
-        return redirect()->route('tasks.index')->with('success', 'tâche créée avec succès');
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Task $task)
     {
-        //
+        $user = auth()->user();
+    
+        $projects = Project::whereHas('team', function($query) use ($user) {
+            $query->whereHas('users', function($query) use ($user) {
+                $query->where('users.id', $user->id);
+            });
+        })->get();
+    
+        $statuses = Status::all();
+    
+        return view('tasks.edit', compact('task', 'projects', 'statuses'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Task $task)
     {
-        $task = Task::findOrFail($id);
-        if (Auth::user()->id == $task->user_id) { // Assuming heroes are associated with users
-
-            return view('task.edit', compact('task'));
-        } else {
-            return redirect()->route('task')->withErrors(['erreur' => 'Vous n\'êtes pas autorisé à modifier cette tâche']);
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $taskEdit = $request->validate([
+        $request->validate([
             'nameTask' => 'required',
             'description' => 'required',
             'status_id' => 'required',
+            'project_id' => 'required',
         ]);
-        Task::whereId($id)->update($taskEdit);
-        // ci-dessous erreur ?
-        return redirect()->route('task.index')
-            ->with('success', 'Tâche mise à jour'); //
+
+        $task->update($request->all());
+
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Task $task)
     {
-        $task = Task::findOrFail($id);
         $task->delete();
-        return redirect('/task')->with('success', 'Tâche supprimé avec succès');
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
 }

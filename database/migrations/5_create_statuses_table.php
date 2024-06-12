@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -10,15 +11,20 @@ return new class extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->boolean('toDo')->default(false);
-            $table->boolean('doing')->default(false);
-            $table->boolean('done')->default(false);
+            $table->string('name');
             $table->timestamps();
         });
+
+        DB::table('statuses')->insert([
+            ['name' => 'To Do'],
+            ['name' => 'Doing'],
+            ['name' => 'Done']
+        ]);
     }
 
     public function down()
     {
         Schema::dropIfExists('statuses');
     }
-};
+}
+;
