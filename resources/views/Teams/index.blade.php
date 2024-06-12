@@ -1,7 +1,15 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid text-center">
-    <h1>Vos Équipes</h1>
+    <h1>Vos <span class="text-primary">Équipes</span></h1>
+    <div class="container-fluid col-md-4 text-center">
+        <div class="w-100 p-2 rounded-pill border bg-primary text-center mt-4">
+            <span class="text-light">nbr teams: {{ $teams->count() }}</span>
+        </div>
+        <div class="container-fluid col-md-6 text-center mt-4">
+            <a href="{{ route('teams.create') }}" class="btn btn-primary text-light">New team</a>
+        </div>
+    </div>
     @foreach ($teams as $team)
     <div class="container-fluid col-md-4 text-center">
         <div class="w-100 p-2 rounded-pill border bg-primary text-center mt-4">
@@ -29,8 +37,5 @@
         </div>
     </div>
     @endforeach
-    <div class="text-center mt-4 mb-3">
-        <a href="{{ route('teams.create') }}" class="btn btn-primary">Ajouter une équipe</a>
-    </div>
 </div>
 @endsection
