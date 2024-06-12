@@ -12,15 +12,12 @@
         <div class="col">
             <div class="card m-4 rounded-4">
                 <div class="card-body">
-                    <h4 class="card-title">Nom de l'équipe: {{ $team->nameTeam }}</h4>
+                    <h4 class="card-title ">Nom de l'équipe: {{ $team->nameTeam }}</h4>
                     <p class="card-text">Date de création: {{ $team->created_at }}</p>
                     <div>
-                        <h5>Tâches:</h5>
-                        @foreach ($teams->tasks as $task)
+                        <h5 class="btn-principale">Tâches:</h5>
                         <div>
-                            <a href="{{ route('tasks.index', $task->id) }}">{{ $task->name }}</a>
                         </div>
-                        @endforeach
                     </div>
                     <div class="row mt-3">
                         <a href="{{ route('teams.edit', $team->id) }}" class="btn btn-secondary mb-2">
