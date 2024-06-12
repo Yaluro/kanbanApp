@@ -27,13 +27,13 @@
                     <div class="container-fluid mt-4">
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="{{ route('projects.edit', ['project' => $project->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Editer</a>
+                                <a href="{{ route('projects.edit', ['project' => $project->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Edit</a>
                             </div>
                             <div class="col-md-6">
                                 <form action="{{ route('projects.destroy', ['project' => $project->id]) }}" method="POST" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn-s" type=" submit">Supprimer</button>
+                                    <button class="btn btn-danger btn-s" type=" submit">Delete</button>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid text-center">
-    <h1>Vos <span class="text-primary">Équipes</span></h1>
+    <h1>Your <span class="text-primary">Teams</span></h1>
     <div class="container-fluid col-md-4 text-center">
         <div class="w-100 p-2 rounded-pill border bg-primary text-center mt-4">
             <span class="text-light">nbr teams: {{ $teams->count() }}</span>
@@ -15,11 +15,11 @@
         <div class="col">
             <div class="card m-4 rounded-4">
                 <div class="card-body">
-                <h2 class="card-title text-primary">Nom de l'équipe: {{ $team->nameTeam }}</h2>
-                    <p class="card-text">Date de création: {{ $team->created_at }}</p>
+                <h2 class="card-title text-primary">Team Name: {{ $team->nameTeam }}</h2>
+                    <p class="card-text">Created at: {{ $team->created_at }}</p>
                     <div class="container-fluid mt-4">
                         <div>
-                        <h5>Tâches:</h5>
+                        <h5>Tasks:</h5>
                         @if($team->tasks->isNotEmpty())
                         @foreach ($team->tasks as $task)
                         <div>
@@ -27,18 +27,18 @@
                         </div>
                         @endforeach
                         @else
-                        <p>Aucune tâche associée à cette équipe.</p>
+                        <p>No tasks associated with this team.</p>
                         @endif
                     </div>
                     <div class="row mt-3">
                             <div class="col-md-6">
-                                <a href="{{ route('teams.edit', ['team' => $team->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Editer</a>
+                                <a href="{{ route('teams.edit', ['team' => $team->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Edit</a>
                             </div>
                             <div class="col-md-6">
                                 <form action="{{ route('teams.destroy', ['team' => $team->id]) }}" method="POST" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn-s" type=" submit">Supprimer</button>
+                                    <button class="btn btn-danger btn-s" type=" submit">Delete</button>
                             </div>
                         </div>
                     </div>
