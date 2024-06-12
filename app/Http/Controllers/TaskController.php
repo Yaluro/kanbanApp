@@ -46,6 +46,15 @@ class TaskController extends Controller
         return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
+    public function show(string $id)
+    {
+        $task = Task::findOrFail($id);
+        return view('tasks.show', compact('task'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(Task $task)
     {
         $user = auth()->user();
