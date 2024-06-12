@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
 
 Route::get('/', function () {
@@ -20,4 +21,5 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('teams', TeamController::class);
+    Route::resource('tasks', TaskController::class);
 });
