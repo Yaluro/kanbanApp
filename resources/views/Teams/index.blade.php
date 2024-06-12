@@ -11,7 +11,7 @@
         </div>
     </div>
     @foreach ($teams as $team)
-    <div class="row row-cols-1 row-cols-md-12 g-4 m-3 bg-primary rounded-3 mt-4">
+    <div class="row row-cols-1 row-cols-md-6 g-4 m-3 bg-primary rounded-3 mt-4">
         <div class="col">
             <div class="card m-4 rounded-4">
                 <div class="card-body">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="row mt-3">
                             <div class="col-md-6">
-                                <a href="{{ route('teams.edit', ['team' => $team->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Edit</a>
+                                <a href="{{ route('teams.edit', ['team' => $team->id]) }}" class="btn btn-primary btn-s mb-4 text-light">Editer</a>
                             </div>
                             <div class="col-md-6">
                                 <form action="{{ route('teams.destroy', ['team' => $team->id]) }}" method="POST" style="display: inline-block">
