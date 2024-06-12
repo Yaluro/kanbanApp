@@ -17,7 +17,7 @@
     </div>
     @foreach($statuses as $status)
     <div class="row row-cols-1 row-cols-md-3 g-4 m-3 bg-primary rounded-3 mt-4">
-        <h2>{{ $status->name }}</h2>
+        <h2 class="text-light">{{ $status->name }}</h2>
         @foreach($tasks->where('status_id', $status->id) as $task)
         <div class="col">
             <div class="card m-4 rounded-4">
