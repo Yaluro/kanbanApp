@@ -22,7 +22,7 @@
             <label for="message" class="form-label">Message</label>
             <textarea class="form-control" id="message" name="message" rows="3" required>{{ old('message') }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="submit" class="btn btn-primary text-light">Send</button>
     </form>
 </div>
 @endsection

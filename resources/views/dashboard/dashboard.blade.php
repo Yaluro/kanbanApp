@@ -29,15 +29,24 @@
                     </div>
                     @endforeach
                 </div>
-
             </div>
             <div class="col-md-6 align-items-center text-center mt-5">
                 <h2>Your <span class="text-primary">Teams</span></h2>
-                
+                <div class="row row-cols-1 row-cols-md-3 g-4 m-3 bg-primary rounded-3 mt-4">
+                    @foreach($teams as $team)
+                    <div class="col">
+                        <div class="card m-4 rounded-4">
+                            <div class="card-body">
+                                <h2 class="card-title text-primary">{{ $team->nameTeam }}</h2>
+                                <span class="card-text">{{ $team->created_at }}</span>
+                                <a href="{{ route('teams.show', $team->id) }}" class="btn btn-primary btn-sm mb-4 text-light mt-4">See the team</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
             </div>
-
         </div>
     </div>
 </div>
-
 @endsection
